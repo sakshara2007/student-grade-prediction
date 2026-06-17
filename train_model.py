@@ -11,9 +11,8 @@ from sklearn.metrics import mean_squared_error
 # Create models folder
 os.makedirs("models", exist_ok=True)
 
-# Load dataset (TAB separated)
-df = pd.read_csv("dataset/student-mat.csv", sep="\t")
-
+# Load dataset
+df = pd.read_csv("dataset/student-mat.csv", sep=";")
 print("Columns Found:")
 print(df.columns.tolist())
 
