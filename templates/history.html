@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Prediction History</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="logo">
+        🎓 GradeIQ
+    </div>
+</nav>
+
+<section class="dashboard">
+
+    <h2>📜 Academic Prediction History</h2>
+
+    <div class="card">
+
+        <table>
+
+            <tr>
+                <th>Student Name</th>
+                <th>Date & Time</th>
+                <th>Predicted Score</th>
+                <th>Performance Category</th>
+            </tr>
+
+            {% for row in rows %}
+<tr>
+    <td>{{ row['student_name'] }}</td>
+    <td>{{ row['timestamp'] }}</td>
+    <td>{{ row['predicted'] }}</td>
+    <td>{{ row['grade_band'] }}</td>
+</tr>
+{% endfor %}
+
+        </table>
+
+        <br><br>
+
+        <a href="/" class="btn-primary">
+            Back To Dashboard
+        </a>
+
+    </div>
+
+</section>
+
+</body>
+</html>

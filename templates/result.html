@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Prediction Result</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">🎓 GradeIQ</div>
+
+    <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+    </ul>
+</nav>
+
+<section class="dashboard">
+
+    <h2>📊 Prediction Result</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>🎯 Predicted Grade</h3>
+            <h1>{{ predicted }}</h1>
+            <p>Out of 20</p>
+        </div>
+
+        <div class="card">
+            <h3>🏆 Performance Level</h3>
+            <h1>{{ band }}</h1>
+            <p>Classification</p>
+        </div>
+
+        <div class="card">
+            <h3>🤖 Best Model</h3>
+            <h1>{{ metrics.best }}</h1>
+            <p>Machine Learning Model</p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="about">
+
+    <h2>💡 Personalized Improvement Tips</h2>
+
+    <ul style="margin-top:20px; line-height:2;">
+        {% for tip in tips %}
+            <li>{{ tip }}</li>
+        {% endfor %}
+    </ul>
+
+</section>
+
+<section class="classification">
+
+    <h2>📚 Grade Categories</h2>
+
+    <div class="cards">
+
+        <div class="class-card excellent">
+            <h3>Excellent</h3>
+            <p>16 - 20</p>
+        </div>
+
+        <div class="class-card good">
+            <h3>Good</h3>
+            <p>12 - 15</p>
+        </div>
+
+        <div class="class-card average">
+            <h3>Average</h3>
+            <p>10 - 11</p>
+        </div>
+
+        <div class="class-card poor">
+            <h3>Needs Improvement</h3>
+            <p>Below 10</p>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="about">
+
+    <h2>📈 Model Performance</h2>
+
+    <p><strong>Linear Regression RMSE:</strong> {{ metrics.lr_rmse }}</p>
+
+    <p><strong>Ridge Regression RMSE:</strong> {{ metrics.ridge_rmse }}</p>
+
+    <p><strong>Selected Model:</strong> {{ metrics.best }}</p>
+
+</section>
+
+<footer>
+    © 2026 GradeIQ | Student Performance Analytics System
+</footer>
+
+</body>
+</html>
