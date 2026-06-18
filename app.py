@@ -3,10 +3,10 @@ import sqlite3
 import datetime
 import numpy as np
 
-from flask import Flask, render_template, request, jsonify, g
+from flask import Flask, render_template, request, jsonify, g, session
 
 app = Flask(__name__)
-
+app.secret_key = "grade_prediction_secret"
 DB_PATH = "predictions.db"
 
 # -----------------------------
@@ -146,6 +146,7 @@ def predict():
 
     form = request.form
     student_name = form.get("student_name")
+    session["student_name"] = student_name
 
     row = {f: 0 for f in FEATURES}
 
@@ -216,8 +217,11 @@ def predict():
 @app.route("/history")
 def history():
 
+    student_name = session.get("student_name")
+
     rows = get_db().execute(
-        "SELECT * FROM predictions ORDER BY id DESC LIMIT 20"
+        "SELECT * FROM predictions WHERE student_name = ? ORDER BY id DESC LIMIT 20",
+        (student_name,)
     ).fetchall()
 
     return jsonify([dict(r) for r in rows])
@@ -229,9 +233,12 @@ def history():
 @app.route("/history_page")
 def history_page():
 
+    student_name = session.get("student_name")
+
     rows = get_db().execute(
-        "SELECT * FROM predictions ORDER BY id DESC"
-    ).fetchall()
+    "SELECT * FROM predictions WHERE student_name = ? ORDER BY id DESC",
+    (student_name,)
+).fetchall()
 
     return render_template(
         "history.html",
